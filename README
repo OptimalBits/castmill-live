@@ -1,0 +1,17 @@
+1. Install ubunutu as lightweight as possible (Current method is alternate CD using f4 to select "commandline only")
+2. Install wireless-tools xorg wpasssssupplicant
+3. Install drivers for the graphiccard (Nvidia: nvidia-current ATI: ?)
+4. Install chrome (download deb from http://www.google.se/chrome)
+5. Copy .xsession to home folder
+6. Create the folder /etc/opt/chrome/policies/managed/
+7. Copy policy.json into this folder
+8. Run install_nodejs.sh (leaves make and g++ behind, maybe should be cleaned up)
+9. Move connect to /etc/init.d/connect
+10.Run "sudo update-rc.d connect defaults" (sets the script to run at startup)
+11.Copy the folder connect to /opt/optimal/connect
+12.Edit last line in /etc/init/tty1.conf to "exec /bin/login -f USERNAME < /dev/tty1 > /dev/tty1 2>&1"
+13.Add "if [ $(tty) == "/dev/tty1" ]; then
+startx
+fi" to ~/.bashrc
+
+Reboot and you should have a live systemet!

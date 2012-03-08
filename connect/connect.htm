@@ -1,0 +1,29 @@
+<script src="/socket.io/socket.io.js"></script>
+<center>
+<p id=text>Connecting..</p>
+<img alt="activity indicator" src="image/loading.gif" id=img>
+<button onClick="handleClick()">Stop</button>
+
+
+</center>
+<script>
+  var socket = io.connect('http://localhost');
+  socket.on('ok', function (data) {
+	document.getElementById('text').innerHTML = 'Connected!';
+	document.getElementById('img').src = 'image/ok.jpg';
+	socket.disconnect();
+	window.location = "http://player.castmill.com"
+  });
+  socket.on('fail', function(data) {
+	document.getElementById('text').innerHTML = 'Fail!';
+	document.getElementById('img').src = 'image/fail.jpg';
+	socket.disconnect();
+  });
+
+  function handleClick() {
+	socket.emit('stop');
+	socket.disconnect();
+	history.go(-1);
+  }
+
+</script>

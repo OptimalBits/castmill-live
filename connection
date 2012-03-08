@@ -1,0 +1,33 @@
+#!/bin/sh 
+PATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin # modify if you need
+exec 1>>/tmp/connect 
+exec 2>>/tmp/connect
+
+start() {
+	for i in eth0 eth1 eth2 wlan0 wlan1; do
+		ifconfig $i up
+	done
+
+
+        echo "Starting $NAME node instance: "
+	cd /opt/optimal/connect
+	node connect.js &
+}
+stop() {
+  echo -n "Shutting down $NAME node instance : "
+  killall node
+}
+ 
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  *)
+    echo "Usage:  {start|stop|status}"
+    exit 1
+    ;;
+esac
+exit 0
